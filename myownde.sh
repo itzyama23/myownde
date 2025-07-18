@@ -119,7 +119,6 @@ checkDirectory $wallpaperDir_lightdm "true"
 sudo cp "$(pwd)/$wallpaper_lightdm" "$wallpaperDir_lightdm"
 
 # Avatar Implementation
-checkDirectory $user_avatar "false"
 cp "$(pwd)/$user_avatar" "$user_home"
 
 # Install wallpaper
