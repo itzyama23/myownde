@@ -69,17 +69,22 @@ scripts="$user_home/.config/scripts"
 
 function checkDirectory() {
     if [ ! -d "$1" ]; then
-    echo "[INFO] Directory '$1' couldn't be found"
-    echo "Creating directory: '$1'"
-    mkdir -p $1
-fi
+        echo "[INFO] Directory '$1' couldn't be found"
+        echo "Creating directory: '$1'"
+
+        if [ $2 = "true"  ]; then
+            sudo mkdir -p $1
+        else
+            mkdir -p $1
+        fi
+    fi
 }
 
 # Check if these directories don't exist, if not,
 # then it will create them.
-checkDirectory $openbox
-checkDirectory $tint2
-checkDirectory $scripts
+checkDirectory $openbox "false"
+checkDirectory $tint2 "false"
+checkDirectory $scripts "false"
 
 # Copy all my settings for OpenBox
 # PHASE 3: IMPORT DOTFILES!!!
@@ -105,11 +110,15 @@ wallpaperDir_lightdm="/usr/share/backgrounds"
 wallpaper_lightdm="nekopara.png"
 user_avatar=".face"
 
-checkDirectory $wallpaperDir_DE
+# DE Implementation
+checkDirectory $wallpaperDir_DE "false"
 cp "$(pwd)/$wallpaper_DE" "$wallpaperDir_DE"
-checkDirectory $wallpaperDir_lightdm
-cp "$(pwd)/$wallpaper_lightdm" "$wallpaperDir_lightdm"
-checkDirectory $user_avatar
+
+# Greeter Implementation
+checkDirectory $wallpaperDir_lightdm "true"
+sudo cp "$(pwd)/$wallpaper_lightdm" "$wallpaperDir_lightdm"
+
+# Avatar Implementation
 cp "$(pwd)/$user_avatar" "$user_home"
 
 # Install wallpaper
