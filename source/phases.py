@@ -1,4 +1,8 @@
 import subprocess
+from . import log_prefixes
+
+# This loads the prefix logs
+prefix = log_prefixes.LogPrefix
 
 def phase0():
     phase1()
@@ -11,7 +15,6 @@ def phase0():
     phase8()
 
 def phase1():
-    print("[INFO] Install installation...")
     packages=[
         "noto-fonts",
         "noto-fonts-cjk",
@@ -41,28 +44,28 @@ def phase1():
         "plymouth",
         "network-manager-applet"
     ]
-    print("[INFO] Install everything...")
+    print(f"{prefix.INFO.value} Install everything...")
     command = ["sudo", "pacman", "-S", "--noconfirm", "--needed"] + packages
     subprocess.run(command, check="True")
-    print("[SUCESS] All the packages were installed!")
+    print(f"{prefix.INFO.value} All the packages were installed!")
 
 def phase2():
-    print("[INFO] Enabling and configuring essential services...")
+    print(f"{prefix.INFO.value} Enabling and configuring essential services...")
 
 def phase3():
-    print("[INFO] Importing dotfiles...")
+    print(f"{prefix.INFO.value} Importing dotfiles...")
 
 def phase4():
-    print("[INFO] Installing icons...")
+    print(f"{prefix.INFO.value} Installing icons...")
 
 def phase5():
-    print("[INFO] Installing DE background...")
+    print(f"{prefix.INFO.value} Installing DE background...")
 
 def phase6():
-    print("[INFO] Installing greeter background and avatar...")
+    print(f"{prefix.INFO.value} Installing greeter background and avatar...")
 
 def phase7():
-    print("[INFO] Installing GRUB theme...")
+    print(f"{prefix.INFO.value} Installing GRUB theme...")
 
 def phase8():
-    print("[INFO] Installing Plymouth theme...")
+    print(f"{prefix.INFO.value} Installing Plymouth theme...")
