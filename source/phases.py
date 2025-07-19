@@ -1,7 +1,18 @@
 import subprocess
 
 def phase0():
-    packages=(
+    phase1()
+    phase2()
+    phase3()
+    phase4()
+    phase5()
+    phase6()
+    phase7()
+    phase8()
+
+def phase1():
+    print("[INFO] Install installation...")
+    packages=[
         "noto-fonts",
         "noto-fonts-cjk",
         "git",
@@ -28,15 +39,12 @@ def phase0():
         "lightdm",
         "lightdm-gtk-greeter",
         "plymouth",
-    )
+        "network-manager-applet"
+    ]
     print("[INFO] Install everything...")
-    args=""
-    for package in packages:
-        args+=f"{package} "
-    subprocess(["sudo", "pacman", "-S", args], shell=True)   
-
-def phase1():
-    print("[INFO] Install installation...")
+    command = ["sudo", "pacman", "-S", "--noconfirm", "--needed"] + packages
+    subprocess.run(command, check="True")
+    print("[SUCESS] All the packages were installed!")
 
 def phase2():
     print("[INFO] Enabling and configuring essential services...")
