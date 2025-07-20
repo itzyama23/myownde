@@ -45,6 +45,13 @@ def phase1():
         "plymouth",
         "network-manager-applet"
     ]
+    
+    # Refreshing repo and updating packages
+    print(f"{prefix.INFO.value} Updating packages if needed...")
+    subprocess.run(["sudo", "pacman", "-Syyu", "--noconfirm"])
+    print(f"{prefix.SUCCESS.value} Packages were updated succesfully!")
+
+    # Installing all the packages needed
     print(f"{prefix.INFO.value} Install everything...")
     command = ["sudo", "pacman", "-S", "--noconfirm", "--needed"] + packages
     subprocess.run(command, check="True")
