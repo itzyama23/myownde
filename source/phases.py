@@ -60,7 +60,7 @@ def phase1():
 def phase2():
     print(f"{prefix.INFO.value} Enabling and configuring essential services...")
     subprocess.run(["sudo", "systemctl", "enable", "lightdm"])
-    subprocess.run(["sudo", "usermod", "-aG", user])
+    subprocess.run(["sudo", "usermod", "-aG", "lightdm", user])
     
 
 def phase3():
