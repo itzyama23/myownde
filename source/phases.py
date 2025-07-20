@@ -94,6 +94,8 @@ def phase3():
             print(f"{prefix.INFO.value} Creating: {route}")
             libphases.createDirectory(route)
             print(f"{prefix.SUCCESS.value} {route} was created!")
+        else:
+            print(f"{prefix.INFO.value} {route} already exists...")
 
 
 def phase4():
