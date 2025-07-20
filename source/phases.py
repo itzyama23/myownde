@@ -3,6 +3,7 @@ from . import log_prefixes
 
 # This loads the prefix logs
 prefix = log_prefixes.LogPrefix
+user = subprocess.run(["whoami"], capture_output=True, text=True).stdout
 
 def phase0():
     phase1()
@@ -51,6 +52,10 @@ def phase1():
 
 def phase2():
     print(f"{prefix.INFO.value} Enabling and configuring essential services...")
+    print(user)
+    subprocess.run(["sudo", "systemctl", "enable", "lightdm"])
+    subprocess.run(["sudo", "usermode", "-aG", user])
+    
 
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
