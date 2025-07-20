@@ -60,9 +60,19 @@ def phase1():
 
 def phase2():
     print(f"{prefix.INFO.value} Enabling and configuring essential services...")
+    
+    # Enable lightdm
     subprocess.run(["sudo", "systemctl", "enable", "lightdm"])
+    print(f"{prefix.SUCCESS.value} lightdm service was enabled")
+
+    # Added user to lightdm group
     subprocess.run(["sudo", "usermod", "-aG", "lightdm", user])
+    print(f"{prefix.SUCCESS.value} The user: {user} wass added to lightdm group!")
+    
+    # Change home permisions to: rwx|r-x|r-x
     subprocess.run(["chmod", "755", home])
+    print(f"{prefix.SUCCESS.value} Home directory permissions were changed successfully!")
+    print(f"{prefix.INFO.value} New permssions for: {home} are: rwx|r-x|r-x")
 
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
