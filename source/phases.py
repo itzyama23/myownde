@@ -3,7 +3,7 @@ from . import log_prefixes
 
 # This loads the prefix logs
 prefix = log_prefixes.LogPrefix
-user = subprocess.run(["whoami"], capture_output=True, text=True).stdout
+user = subprocess.run(["whoami"], capture_output=True, text=True).stdout.replace("\n", "")
 
 def phase0():
     phase1()
