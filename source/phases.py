@@ -1,10 +1,17 @@
 import subprocess
 from . import log_prefixes
+from . import libphases
 
 # This loads the prefix logs
 prefix = log_prefixes.LogPrefix
 user = subprocess.run(["whoami"], capture_output=True, text=True).stdout.replace("\n", "")
 home = f"/home/{user}"
+config = f"{home}/.config"
+
+# Config routes
+openbox = f"{config}/openbox"
+tint2 = f"{config}/tint2"
+scripts = f"{config}/scripts"
 
 def phase0():
     phase1()
@@ -63,11 +70,11 @@ def phase2():
     
     # Enable lightdm
     subprocess.run(["sudo", "systemctl", "enable", "lightdm"])
-    print(f"{prefix.SUCCESS.value} lightdm service was enabled")
+    print(f"{prefix.INFO.value} lightdm service was enabled!")
 
     # Added user to lightdm group
     subprocess.run(["sudo", "usermod", "-aG", "lightdm", user])
-    print(f"{prefix.SUCCESS.value} The user: {user} wass added to lightdm group!")
+    print(f"{prefix.INFO.value} The user: {user} wass added to lightdm group!")
     
     # Change home permisions to: rwx|r-x|r-x
     subprocess.run(["chmod", "755", home])
@@ -76,6 +83,21 @@ def phase2():
 
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
+    
+    # Openbox
+    print(f"{prefix.INFO.value} Creating: {openbox}")
+    libphases.checkDirectory(openbox)
+    print(f"{prefix.SUCCESS.value} {openbox} was created!")
+    
+    # Tint2
+    print(f"{prefix.INFO.value} Creating: {tint2}")
+    libphases.checkDirectory(tint2)
+    print(f"{prefix.SUCCESS.value} {tint2} was created!")
+    
+    # yet another custom scripts folder
+    print(f"{prefix.INFO.value} Creating: {scripts}")
+    libphases.checkDirectory(scripts)
+    print(f"{prefix.SUCCESS.value} {scripts} was created!")
 
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
