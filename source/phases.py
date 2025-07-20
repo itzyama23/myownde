@@ -12,6 +12,11 @@ config = f"{home}/.config"
 openbox = f"{config}/openbox"
 tint2 = f"{config}/tint2"
 scripts = f"{config}/scripts"
+routes = [
+    openbox,
+    tint2,
+    scripts
+]
 
 def phase0():
     phase1()
@@ -84,20 +89,12 @@ def phase2():
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
     
-    # Openbox
-    print(f"{prefix.INFO.value} Creating: {openbox}")
-    libphases.checkDirectory(openbox)
-    print(f"{prefix.SUCCESS.value} {openbox} was created!")
-    
-    # Tint2
-    print(f"{prefix.INFO.value} Creating: {tint2}")
-    libphases.checkDirectory(tint2)
-    print(f"{prefix.SUCCESS.value} {tint2} was created!")
-    
-    # yet another custom scripts folder
-    print(f"{prefix.INFO.value} Creating: {scripts}")
-    libphases.checkDirectory(scripts)
-    print(f"{prefix.SUCCESS.value} {scripts} was created!")
+    for route in routes:
+        if not (libphases.checkDirectory(route)):
+            print(f"{prefix.INFO.value} Creating: {route}")
+            libphases.createDirectory(route)
+            print(f"{prefix.SUCCESS.value} {route} was created!")
+
 
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")

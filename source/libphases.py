@@ -2,9 +2,9 @@
 from pathlib import Path
 from subprocess import run
 
-def checkDirectory(strRoute):
+def checkDirectory(strRoute:str):
     route=Path(f"{strRoute}")
-    if route.is_dir():
-        run(["mkdir"," -p", "strRoute"])
-    else:
-        pass
+    return route.is_dir()
+    
+def createDirectory(route:str):
+    run(["mkdir", "-p", route])
