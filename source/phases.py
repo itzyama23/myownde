@@ -14,7 +14,7 @@ config = f"{home}/.config"
 globalShare = "/usr/share"
 
 # Routes to be copied
-iconsTheme = f"{currentDir}/assets/oxylite-icon-theme"
+iconsTheme = f"{currentDir}/source/assets/oxylite-icon-theme"
 
 # Config routes
 openbox = f"{config}/openbox"
