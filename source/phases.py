@@ -108,10 +108,10 @@ def phase2():
 
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
-    directoryExists = (libphases.checkDirectory(route))
 
     # Creating missing directories
     for route in routes:
+        directoryExists = (libphases.checkDirectory(route))
         if not directoryExists:
             print(f"{prefix.INFO.value} Creating: {route}")
             libphases.createDirectory(route)
