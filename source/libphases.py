@@ -11,9 +11,9 @@ def createDirectory(route:str):
 
 def copyFilesFrom(originRoute:str, destinationRoute:str, sudo:bool=None):
     if sudo is None or sudo is False:
-        run(["cp", "-r", originRoute, destinationRoute], capture_output=True)
+        run(["cp", "-r", originRoute, destinationRoute])
     elif sudo is True:
-        run(["sudo", "cp", "-r", originRoute, destinationRoute], capture_output=True)
+        run(["sudo", "cp", "-r", originRoute, destinationRoute])
     else:
         pass
     return True
