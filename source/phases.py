@@ -109,8 +109,8 @@ def phase3():
 
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
-    if (libphases.copyFilesFrom(iconsTheme, iconsRoute, sudo=True)):
-        print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")
+    libphases.copyFilesFrom(iconsTheme, iconsRoute, sudo=True)
+    print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")
 
 def phase5():
     print(f"{prefix.INFO.value} Installing DE background...")
