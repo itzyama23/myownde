@@ -121,6 +121,7 @@ def phase3():
 
     # Copy dotfiles
     for origin, destination in routes_dotfiles.items():
+        print(f"{origin} --> {destination}")
         libphases.copyFilesFrom(fromRoute=origin,
                                 toRoute=destination)
 
