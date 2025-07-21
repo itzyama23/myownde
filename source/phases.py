@@ -1,19 +1,26 @@
 import subprocess
+from pathlib import Path
 from . import log_prefixes
 from . import libphases
 
+
 # This loads the prefix logs
 prefix = log_prefixes.LogPrefix
+currentDir = Path.cwd()
+
 user = subprocess.run(["whoami"], capture_output=True, text=True).stdout.replace("\n", "")
 home = f"/home/{user}"
 config = f"{home}/.config"
 globalShare = "/usr/share"
 
+# Routes to be copied
+iconsTheme = f"{currentDir}/assets/oxylite-icon-theme"
+
 # Config routes
 openbox = f"{config}/openbox"
 tint2 = f"{config}/tint2"
 scripts = f"{config}/scripts"
-icons = f"{globalShare}/icons"
+iconsRoute = f"{globalShare}/icons"
 
 routes = [
     openbox,
@@ -102,7 +109,7 @@ def phase3():
 
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
-    if (libphases.copyFilesFrom("./assets/oxylite-icon-theme", icons, sudo=True)):
+    if (libphases.copyFilesFrom(iconsTheme, iconsRoute, sudo=True)):
         print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")
 
 def phase5():
