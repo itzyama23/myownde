@@ -33,9 +33,9 @@ routes = [
 
 routes_dotfiles = {
     # Origin: Destination
-    openbox_dotfiles: openbox,
-    tint2_dotfiles: tint2,
-    scripts_files: scripts
+    f"{openbox_dotfiles}": f"{openbox}",
+    f"{tint2_dotfiles}": f"{tint2}",
+    f"{scripts_files}": f"{scripts}"
 }
 
 def phase0():
