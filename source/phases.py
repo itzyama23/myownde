@@ -7,11 +7,14 @@ prefix = log_prefixes.LogPrefix
 user = subprocess.run(["whoami"], capture_output=True, text=True).stdout.replace("\n", "")
 home = f"/home/{user}"
 config = f"{home}/.config"
+globalShare = "/usr/share"
 
 # Config routes
 openbox = f"{config}/openbox"
 tint2 = f"{config}/tint2"
 scripts = f"{config}/scripts"
+icons = f"{globalShare}/icons"
+
 routes = [
     openbox,
     tint2,
@@ -79,7 +82,7 @@ def phase2():
 
     # Added user to lightdm group
     subprocess.run(["sudo", "usermod", "-aG", "lightdm", user])
-    print(f"{prefix.INFO.value} The user: {user} wass added to lightdm group!")
+    print(f"{prefix.INFO.value} The user: {user} was added to lightdm group!")
     
     # Change home permisions to: rwx|r-x|r-x
     subprocess.run(["chmod", "755", home])
@@ -99,6 +102,8 @@ def phase3():
 
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
+    if (libphases.copyFilesFrom("./assets/oxylite-icon-theme", icons, sudo=True)):
+        print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")
 
 def phase5():
     print(f"{prefix.INFO.value} Installing DE background...")
