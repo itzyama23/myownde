@@ -14,19 +14,29 @@ config = f"{home}/.config"
 globalShare = "/usr/share"
 
 # Routes to be copied
-iconsTheme = f"{currentDir}/source/assets/oxylite-icon-theme"
+openbox_dotfiles = f"{currentDir}/source/assets/openbox"
+tint2_dotfiles = f"{currentDir}/source/assets/tint2"
+scripts_files = f"{currentDir}/source/assets/scripts"
+icons_theme = f"{currentDir}/source/assets/oxylite-icon-theme"
 
 # Config routes
 openbox = f"{config}/openbox"
 tint2 = f"{config}/tint2"
 scripts = f"{config}/scripts"
-iconsRoute = f"{globalShare}/icons"
+icons_route = f"{globalShare}/icons"
 
 routes = [
     openbox,
     tint2,
     scripts
 ]
+
+routes_dotfiles = {
+    # Origin: Destination
+    openbox_dotfiles: openbox,
+    tint2_dotfiles: tint2,
+    scripts_files: scripts
+}
 
 def phase0():
     phase1()
@@ -98,19 +108,27 @@ def phase2():
 
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
-    
+    directoryExists = (libphases.checkDirectory(route))
+
     # Creating missing directories
     for route in routes:
-        if not (libphases.checkDirectory(route)):
+        if not directoryExists:
             print(f"{prefix.INFO.value} Creating: {route}")
             libphases.createDirectory(route)
             print(f"{prefix.SUCCESS.value} {route} was created!")
         else:
             print(f"{prefix.INFO.value} {route} already exists...")
 
+    # Copy dotfiles
+    for origin, destination in routes_dotfiles.items():
+        libphases.copyFilesFrom(fromRoute=origin,
+                                toRoute=destination)
+
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
-    checkIcons = libphases.copyFilesFrom(iconsTheme, iconsRoute, sudo=True)
+    checkIcons = libphases.copyFilesFrom(fromRoute=icons_theme,
+                                         toRoute=icons_route,
+                                         sudo=True)
     
     if checkIcons:
         print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")

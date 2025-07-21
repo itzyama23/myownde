@@ -9,11 +9,11 @@ def checkDirectory(strRoute:str):
 def createDirectory(route:str):
     run(["mkdir", "-p", route], capture_output=True)
 
-def copyFilesFrom(originRoute:str, destinationRoute:str, sudo:bool=None):
+def copyFilesFrom(fromRoute:str=None, toRoute:str=None, sudo:bool=None):
     if sudo is None or sudo is False:
-        run(["cp", "-r", originRoute, destinationRoute])
+        run(["cp", "-r", fromRoute, fromRoute])
     elif sudo is True:
-        run(["sudo", "cp", "-r", originRoute, destinationRoute])
+        run(["sudo", "cp", "-r", fromRoute, toRoute])
     else:
         pass
     return True
