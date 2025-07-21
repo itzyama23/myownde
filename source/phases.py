@@ -97,7 +97,6 @@ def phase3():
         else:
             print(f"{prefix.INFO.value} {route} already exists...")
 
-
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
 
