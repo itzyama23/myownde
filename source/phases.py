@@ -99,6 +99,7 @@ def phase2():
 def phase3():
     print(f"{prefix.INFO.value} Importing dotfiles...")
     
+    # Creating missing directories
     for route in routes:
         if not (libphases.checkDirectory(route)):
             print(f"{prefix.INFO.value} Creating: {route}")
@@ -109,8 +110,10 @@ def phase3():
 
 def phase4():
     print(f"{prefix.INFO.value} Installing icons...")
-    libphases.copyFilesFrom(iconsTheme, iconsRoute, sudo=True)
-    print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")
+    checkIcons = libphases.copyFilesFrom(iconsTheme, iconsRoute, sudo=True)
+    
+    if checkIcons:
+        print(f"{prefix.SUCCESS.value} Icons were installed sucessfully!")
 
 def phase5():
     print(f"{prefix.INFO.value} Installing DE background...")
